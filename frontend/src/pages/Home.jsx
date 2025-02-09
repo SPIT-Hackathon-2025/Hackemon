@@ -7,21 +7,16 @@ import code from '../assets/code.png'
 const Home = () => {
   const features = [
     "Intuitive Drag-and-Drop Interface",
-    "Pre-built Action Blocks",
-    "Trigger Blocks",
-    "Conditional Logic",
     "Multi-App Integration",
-    "Custom API Integrations",
     "User-Friendly Interface",
     "Automation Dashboard",
     "Real-Time Data Sync",
-    "Task Scheduling",
     "Notifications and Alerts"
   ];
 
   return (
     <>
-      <div className='bg-slate-950 w-full h-screen flex justify-center items-center'>
+      <div className='bg-slate-950 w-full h-screen flex justify-center items-center pb-4'>
         <div className='w-full h-full flex justify-around items-center px-16'>
           {/* Left Side (Text) */}
           <div className='flex flex-col justify-center w-[10%] mr-36'>
@@ -31,7 +26,7 @@ const Home = () => {
               animate={{ x: 0 }}  // Animate to normal position
               transition={{ type: 'spring', stiffness: 120, damping: 25 }} // Customize animation
             >
-              App name
+              Poke-<br/>flow
             </motion.h1>
           </div>
 
@@ -82,7 +77,7 @@ const Home = () => {
       </div>
 
       {/* Features */}
-      <div className="pt-16 text-xl flex flex-col items-center bg-slate-950 text-white">
+      <div className="pt-16 pb-8 text-xl flex flex-col items-center bg-slate-950 text-white">
         <h1 className="text-5xl font-semibold mb-6">Features of Our Workflow Automation Platform</h1>
         <ul className="space-y-4">
           {features.map((feature, index) => {
