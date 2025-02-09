@@ -101,8 +101,8 @@ const Login = () => {
         // transition: Bounce
       /> */}
       <div
-        className="h-screen w-screen flex justify-center items-center relative bg-white"
-        style={{ fontFamily: "Literata, serif" }}
+        className="h-screen w-screen flex justify-center items-center relative bg-slate-900 shadow-white shadow-xl"
+        // style={{ fontFamily: "Literata, serif" }}
       >
         <div className="ocean">
           <div className="wave"></div>
@@ -119,8 +119,8 @@ const Login = () => {
             <div className="flex">
               {/* <img src={logo} className="h-24 mr-8 mb-4" alt="logo" /> */}
               <h1
-                className="text-center blur-none text-4xl mt-4 mb-8 font-extrabold text-[#60359E]"
-                style={{ fontFamily: "Literata, serif" }}
+                className="text-center blur-none text-4xl mt-4 mb-8 font-extrabold text-white"
+                // style={{ fontFamily: "Literata, serif" }}
               >
                 Login
               </h1>
@@ -152,7 +152,7 @@ const Login = () => {
               </span>
             </div>
             <div
-              className="text-center text-2xl font-extrabold text-[#60359E] bg-white py-2 px-4 mt-8 mb-8 rounded-lg shadow-lg shadow-[rgba(0,0,0,0.25)]  hover:bg-[#60359E] hover:text-white cursor-pointer"
+              className="text-center text-2xl font-extrabold text-[#60359E bg-white py-2 px-4 mt-8 mb-8 rounded-lg shadow-lg shadow-[rgba(0,0,0,0.25)]    cursor-pointer"
               style={{
                 fontFamily: "Literata, serif",
                 border: "1px solid #CFC4EC",
@@ -163,13 +163,13 @@ const Login = () => {
               </button>
             </div>
             <div
-              className="text-center text-2xl font-extrabold text-[#60359E] bg-white py-2 px-4 mt-8 mb-8 rounded-lg shadow-lg shadow-[rgba(0,0,0,0.25)]  hover:bg-[#60359E] hover:text-white cursor-pointer"
+              className="text-center text-2xl font-extrabold  bg-white py-2 px-4 mt-8 mb-8 rounded-lg shadow-lg shadow-[rgba(0,0,0,0.25)]   cursor-pointer"
               style={{
-                fontFamily: "Literata, serif",
+                // fontFamily: "Literata, serif",
                 border: "1px solid #CFC4EC",
               }}
             >
-              <button className="" type="submit" onClick={handleSubmit}>
+              <button className="font-medium  " type="submit" onClick={handleSubmit}>
                 Sign in with google
               </button>
             </div>

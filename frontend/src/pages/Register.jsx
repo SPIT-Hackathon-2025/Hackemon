@@ -87,8 +87,8 @@ const Register = () => {
         // transition: Bounce
       /> */}
       <div
-        className="h-screen w-screen flex justify-center items-center relative bg-white"
-        style={{ fontFamily: "Literata, serif" }}
+        className="h-screen w-screen flex justify-center items-center relative bg-slate-900"
+        // style={{ fontFamily: "Literata, serif" }}
       >
         {/* <img src={waves} alt="waves" className="h-auto w-full z-0 flex justify-end items-end absolute bottom-0 left-0 "/> */}
         <div className="ocean">
@@ -106,8 +106,8 @@ const Register = () => {
             <div className="flex">
               {/* <img src={logo} className="h-24 mr-8 mb-4" alt="logo" /> */}
               <h1
-                className="text-center blur-none text-4xl mt-4 mb-8 font-extrabold text-[#60359E]"
-                style={{ fontFamily: "Literata, serif" }}
+                className="text-center blur-none text-4xl mt-4 mb-8 font-extrabold text-white"
+                // style={{ fontFamily: "Literata, serif" }}
               >
                 Register
               </h1>
@@ -154,9 +154,9 @@ const Register = () => {
 
 
             <div
-              className="text-center text-2xl font-extrabold text-[#60359E] bg-white py-2 px-4 mt-8 mb-8 rounded-lg shadow-lg shadow-[rgba(0,0,0,0.25)]"
+              className="text-center text-2xl font-extrabold text-slate-900  bg-white py-2 px-4 mt-8 mb-8 rounded-lg shadow-lg shadow-[rgba(0,0,0,0.25)]"
               style={{
-                fontFamily: "Literata, serif",
+                // fontFamily: "Literata, serif",
                 border: "1px solid #CFC4EC",
               }}
             >
