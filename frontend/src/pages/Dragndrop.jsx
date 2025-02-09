@@ -14,6 +14,7 @@ const Dragndrop = () => {
     const [message, setMessage] = useState(''); // State variable to store the message input
     const [date, setDate] = useState(''); // State variable to store the date input
     const [time, setTime] = useState(''); // State variable to store the time input
+    const [slackModal, setSlackModal] = useState(false); // State variable to track the Slack modal visibility
     const [leftApps, setLeftApps] = useState([
         { id: "app1", name: "Gmail", img: gmail, functions: ["Summarize Mail", "Extract Attachments", "Send Mail"], side: "left" },
         { id: "app2", name: "Google Drive", img: drive, functions: ["Upload File", "Organize Files", "Share Files"], side: "left" },
@@ -39,7 +40,9 @@ const Dragndrop = () => {
         // Add function from left and right to the selected functions array
         if (selectedFunctions[0] === "Summarize Mail") {
             setIsInputModelOpen(true);
-
+        }
+        if(selectedApp.name === "Slack" && func === "Schedule Message"){
+            setSlackModal(true);
         }
         setIsModalOpen(false);
         if (side === "left") {
@@ -111,22 +114,28 @@ const Dragndrop = () => {
         setSelectedApp(null);
         setIsInputModelOpen(false);
     };
-
+const closeSlackModal = () => {
+        setSlackModal(false); // Close the modal
+        setMessage("");
+        setDate("");
+        setTime("");
+}
     const handleScheduleMessage = async () => {
         if (!message || !date || !time) {
-          alert("Please enter all fields: message, date, and time.");
-          return;
+            alert("Please enter all fields: message, date, and time.");
+            return;
         }
-    console.log(message, date, time);
+        console.log(message, date, time);
         try {
-          const response = await axios.post("http://localhost:5000/schedule-message", {
-            message,
-            date,
-            time,
-          });
-    
-          if (response.status === 200) {
-            alert("Message scheduled successfully!");
+            const response = await axios.post("http://localhost:5000/schedule-message", {
+                message,
+                date,
+                time,
+            });
+            
+            if (response.status === 200) {
+                alert("Message scheduled successfully!");
+                setSlackModal(false);
             closeModal(); // Close modal after scheduling
           }
         } catch (error) {
@@ -392,7 +401,7 @@ const Dragndrop = () => {
                 </div>
             )}
             
-            {selectedFunctions[0] === "Schedule Message" && (
+            {slackModal && selectedFunctions[0] === "Schedule Message" && (
         <div className="mt-3 fixed inset-0 bg-gray-500 bg-opacity-60 flex justify-center items-center z-50 flex-col p-4">
           <div className="bg-white p-6 rounded-md shadow-lg">
             <label className="block text-xl font-medium">Enter Message:</label>
@@ -427,7 +436,7 @@ const Dragndrop = () => {
                 Schedule
               </button>
               <button
-                onClick={closeModal}
+                onClick={closeSlackModal}
                 className="px-6 py-2 bg-gray-500 text-white rounded-md"
               >
                 Close
