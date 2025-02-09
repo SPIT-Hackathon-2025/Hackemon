@@ -7,9 +7,13 @@ import googlesheets from "../assets/googlesheets.png"
 import googlemeet from "../assets/gmeet.jpg"
 import slack from "../assets/slack.png"
 import '../App.css';
+import axios from "axios";
 
 const Dragndrop = () => {
     const [email, setEmail] = useState(''); // State variable to store the email input
+    const [message, setMessage] = useState(''); // State variable to store the message input
+    const [date, setDate] = useState(''); // State variable to store the date input
+    const [time, setTime] = useState(''); // State variable to store the time input
     const [leftApps, setLeftApps] = useState([
         { id: "app1", name: "Gmail", img: gmail, functions: ["Summarize Mail", "Extract Attachments", "Send Mail"], side: "left" },
         { id: "app2", name: "Google Drive", img: drive, functions: ["Upload File", "Organize Files", "Share Files"], side: "left" },
@@ -55,7 +59,27 @@ const Dragndrop = () => {
 
     const handleRun = async (selectedFunctions) => {
         console.log("clicked")
+        if(selectedFunctions[0] === "Schedule message"){
+            try {
+                // Send a request to the backend to trigger the process
+                const response = await fetch('http://localhost:5000/schedule-message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: 'Hello, this is a scheduled message!' }),
+                });
 
+                if (response.ok) {
+                    console.log('Request successful');
+                    alert("Message scheduled successfully");
+                } else {
+                    console.log('Request failed');
+                }
+            } catch (error) {
+                console.error('Error occurred while scheduling message:', error);
+            }
+        }
         if (selectedFunctions[0] === "Extract Attachments" && selectedFunctions[1] === "Upload File") {
             try {
                 // Send a request to the backend to trigger the process
@@ -88,6 +112,28 @@ const Dragndrop = () => {
         setIsInputModelOpen(false);
     };
 
+    const handleScheduleMessage = async () => {
+        if (!message || !date || !time) {
+          alert("Please enter all fields: message, date, and time.");
+          return;
+        }
+    console.log(message, date, time);
+        try {
+          const response = await axios.post("http://localhost:5000/schedule-message", {
+            message,
+            date,
+            time,
+          });
+    
+          if (response.status === 200) {
+            alert("Message scheduled successfully!");
+            closeModal(); // Close modal after scheduling
+          }
+        } catch (error) {
+            console.log(error)
+          alert(`Error: ${error.response?.data?.error || "Failed to schedule message"}`);
+        }
+      };
     const [workspaceLeft, setWorkspaceLeft] = useState([]);
     const [workspaceRight, setWorkspaceRight] = useState([]);
 
@@ -345,6 +391,52 @@ const Dragndrop = () => {
                     </div>
                 </div>
             )}
+            
+            {selectedFunctions[0] === "Schedule Message" && (
+        <div className="mt-3 fixed inset-0 bg-gray-500 bg-opacity-60 flex justify-center items-center z-50 flex-col p-4">
+          <div className="bg-white p-6 rounded-md shadow-lg">
+            <label className="block text-xl font-medium">Enter Message:</label>
+            <textarea
+              className="mt-2 p-2 border border-gray-300 rounded-md w-full"
+              placeholder="Enter the message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+
+            <label className="block text-xl font-medium mt-3">Select Date:</label>
+            <input
+              type="date"
+              className="mt-2 p-2 border border-gray-300 rounded-md w-full"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+
+            <label className="block text-xl font-medium mt-3">Select Time:</label>
+            <input
+              type="time"
+              className="mt-2 p-2 border border-gray-300 rounded-md w-full"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+            />
+
+            <div className="flex gap-4 mt-4">
+              <button
+                onClick={handleScheduleMessage}
+                className="px-6 py-2 bg-green-500 text-white rounded-md"
+              >
+                Schedule
+              </button>
+              <button
+                onClick={closeModal}
+                className="px-6 py-2 bg-gray-500 text-white rounded-md"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
 
         </DragDropContext>
     );
